@@ -10,6 +10,7 @@ public class ShowToggle : MonoBehaviour
     [SerializeField] private Image _checkmarkImage;
     [SerializeField] private Color _checkmarkDefaultColor;
     private Color _checkmarkActiveColor;
+    private GameObject _selectedText;
 
 
     public Toggle Toggle
@@ -33,6 +34,11 @@ public class ShowToggle : MonoBehaviour
         set => _checkmarkActiveColor = value;
     }
 
+    private void Start()
+    {
+        _selectedText = transform.parent.GetComponentInChildren<Text>().gameObject;
+    }
+
     private void Awake()
     {
         Toggle = GetComponent <Toggle> ();
@@ -43,6 +49,7 @@ public class ShowToggle : MonoBehaviour
 
     private void OnCheck(bool isChecked)
     {
+        _selectedText.gameObject.SetActive(isChecked);
         CheckmarkImage.color = isChecked ? CheckmarkActiveColor : CheckmarkDefaultColor;
     }
 
